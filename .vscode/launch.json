@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [{
+		"type": "node",
+		"request": "launch",
+		"name": "Debug Increment Command",
+		"cwd": "${workspaceRoot}",
+		"sourceMaps": true,
+		"preLaunchTask": "npm: build",
+		"program": "${workspaceRoot}/dist/index.js",
+		"stopOnEntry": false,
+		"outFiles": [
+			"${workspaceRoot}/dist/**"
+		],
+		"env": { "NODE_ENV": "development" }
+	}]
+}
