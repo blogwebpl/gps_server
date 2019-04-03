@@ -1,5 +1,4 @@
 /dist
 /doc
-src/config.js
 node_modules
 yarn-error.log
