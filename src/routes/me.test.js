@@ -9,10 +9,10 @@ import supertest from 'supertest';
 
 describe('routes/me.js', () => {
 	describe('POST /api/me/login', () => {
-		beforeAll(async() => {
+		before(async() => {
 			await initDb();
 		});
-		test('should login user and return auth token', (done) => {
+		it('should login user and return auth token', (done) => {
 			supertest(app)
 				.post('/api/me/login')
 				.send({
@@ -28,7 +28,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should reject unknown email', (done) => {
+		it('should reject unknown email', (done) => {
 			supertest(app)
 				.post('/api/me/login')
 				.send({
@@ -44,7 +44,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should reject unknown password', (done) => {
+		it('should reject unknown password', (done) => {
 			supertest(app)
 				.post('/api/me/login')
 				.send({
@@ -60,7 +60,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should reject invalid email', (done) => {
+		it('should reject invalid email', (done) => {
 			supertest(app)
 				.post('/api/me/login')
 				.send({
@@ -76,7 +76,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should reject empty password', (done) => {
+		it('should reject empty password', (done) => {
 			supertest(app)
 				.post('/api/me/login')
 				.send({
@@ -94,10 +94,10 @@ describe('routes/me.js', () => {
 		});
 	});
 	describe('POST /api/me/logout', () => {
-		beforeAll(async() => {
+		before(async() => {
 			await initDb();
 		});
-		test('should remove auth token on logout', (done) => {
+		it('should remove auth token on logout', (done) => {
 			supertest(app)
 				.post('/api/me/logout')
 				.set('x-auth', users[2].token)
@@ -112,7 +112,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should return 401 when user not authenticated', (done) => {
+		it('should return 401 when user not authenticated', (done) => {
 			supertest(app)
 				.post('/api/me/logout')
 				.expect(401)
@@ -124,7 +124,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should return 401 when invalid token', (done) => {
+		it('should return 401 when invalid token', (done) => {
 			supertest(app)
 				.post('/api/me/logout')
 				.set('x-auth', 'lalala')
@@ -137,7 +137,7 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
-		test('should return 401 when unknown token', (done) => {
+		it('should return 401 when unknown token', (done) => {
 			supertest(app)
 				.post('/api/me/logout')
 				.set('x-auth', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzc1OTdkOTNhZjQ1OTI1Y2E3NzNjNTIiLCJleHAiOjE1ODI3NDY0NTcsImlhdCI6MTU1MTIxMDQ1N30.vAgU1TwvhCna2DX2iement_Dj9oUn2H-Kk66W2N_CUo')

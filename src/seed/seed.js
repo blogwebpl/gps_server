@@ -4,10 +4,9 @@ import { ObjectID } from 'mongodb';
 import Permission from '../models/permission';
 import Role from '../models/role';
 import User from '../models/user';
-import bluebird from 'bluebird';
 import config from '../config';
 import jwt from 'jsonwebtoken';
-import mongoose from 'mongoose';
+import mongoose from '../db/mongoose';
 
 const env = process.env.NODE_ENV;
 const jwtSecret = config[env].JWT_SECRET;
@@ -137,12 +136,7 @@ export const users = [
 ];
 
 export const initDb = async() => {
-	const env = process.env.NODE_ENV;
-	const mongodbUri = config[env].MONGODB_URI;
-	mongoose.Promise = bluebird;
-	mongoose.set('useFindAndModify', false);
 	try {
-		await mongoose.connect(mongodbUri, { useNewUrlParser: true, useCreateIndex: true });
 		await MenuItem.deleteMany();
 		await Menu.deleteMany();
 		await Permission.deleteMany();

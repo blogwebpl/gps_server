@@ -1,9 +1,5 @@
 {
-	"extends": ["node"],
-	"plugins": ["jest"],
-	"env": {
-		"jest/globals": true
-	},
+	"extends": ["node", "mocha/test", "mocha/es6"],
 	"rules": {
 		"no-require-imports": 0,
 		"no-sync": 0,
@@ -18,11 +14,6 @@
 		"arrow-body-style": 0,
 		"no-invalid-this": 0,
 		"class-methods-use-this": 0,
-		"new-cap": 0,
-		"jest/no-disabled-tests": "warn",
-		"jest/no-focused-tests": "error",
-		"jest/no-identical-title": "error",
-		"jest/prefer-to-have-length": "warn",
-		"jest/valid-expect": "error"
+		"new-cap": 0
 	}
 }

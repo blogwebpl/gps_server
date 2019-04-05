@@ -17,7 +17,11 @@ module.exports = function(wallaby) {
 		env: {
 			type: 'node'
 		},
-		testFramework: 'jest',
+		testFramework: 'mocha',
+		setup: (wallaby) => {
+			const runningMocha = wallaby.testFramework;
+			runningMocha.timeout(15000);
+		},
 		debug: true,
 		workers: {
 			recycle: true
