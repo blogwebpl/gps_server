@@ -27,6 +27,62 @@ export default (collectionName) => {
 					testString: 'Ghi',
 					testNumber: '789',
 					testNumber2: '789'
+				},
+				{
+					_id: 4,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 5,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 6,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 7,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 8,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 9,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 10,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
+				},
+				{
+					_id: 11,
+					_selected: false,
+					testString: 'Ghi',
+					testNumber: '789',
+					testNumber2: '789'
 				}
 			],
 			columns: [
