@@ -9,7 +9,7 @@ export default (collectionName) => {
 			data: [
 				{
 					_id: 1,
-					_selected: true,
+					_selected: false,
 					testString: 'Abc',
 					testNumber: '123',
 					testNumber2: '123'
