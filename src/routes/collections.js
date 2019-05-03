@@ -96,7 +96,7 @@ export default (collectionName) => {
 					field: 'testNumber',
 					label: 'Number',
 					sortOrder: 2,
-					sort: 'dsc'
+					sort: 'desc'
 				},
 				{
 					field: 'testNumber2',
@@ -105,11 +105,11 @@ export default (collectionName) => {
 					sort: ''
 				}
 			]
-		}
+		};
 		res.send(data);
 	});
 	const router = new express.Router();
 	// TO DO modify router.get('/', authenticate, getDocuments);
 	router.get('/', getDocuments);
 	return router;
-}
+};
