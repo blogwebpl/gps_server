@@ -24,28 +24,28 @@ export default (collectionName) => {
 				{
 					_id: 3,
 					_selected: false,
-					testString: 'Ghi',
-					testNumber: '789',
-					testNumber2: '789'
+					testString: 'Ire',
+					testNumber: '289',
+					testNumber2: '189'
 				},
 				{
 					_id: 4,
 					_selected: false,
-					testString: 'Ghi',
-					testNumber: '789',
-					testNumber2: '789'
+					testString: 'Ire',
+					testNumber: '289',
+					testNumber2: '189'
 				},
 				{
 					_id: 5,
 					_selected: false,
-					testString: 'Ghi',
-					testNumber: '789',
-					testNumber2: '789'
+					testString: 'Ire',
+					testNumber: '189',
+					testNumber2: '289'
 				},
 				{
 					_id: 6,
 					_selected: false,
-					testString: 'Ghi',
+					testString: 'Ree',
 					testNumber: '789',
 					testNumber2: '789'
 				},
@@ -59,9 +59,9 @@ export default (collectionName) => {
 				{
 					_id: 8,
 					_selected: false,
-					testString: 'Ghi',
-					testNumber: '789',
-					testNumber2: '789'
+					testString: 'Zsd',
+					testNumber: '739',
+					testNumber2: '189'
 				},
 				{
 					_id: 9,
