@@ -102,7 +102,7 @@ export default (collectionName) => {
 					field: 'testNumber2',
 					label: 'Number 2',
 					sortOrder: 3,
-					sort: ''
+					sort: 'desc'
 				}
 			]
 		};
