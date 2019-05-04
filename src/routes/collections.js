@@ -87,22 +87,24 @@ export default (collectionName) => {
 			],
 			columns: [
 				{
-					field: 'testString',
+					key: 'testString',
 					label: 'String',
 					sortOrder: 1,
 					sort: 'asc'
 				},
 				{
-					field: 'testNumber',
+					key: 'testNumber',
 					label: 'Number',
 					sortOrder: 2,
-					sort: 'desc'
+					sort: 'desc',
+					type: 'number'
 				},
 				{
-					field: 'testNumber2',
+					key: 'testNumber2',
 					label: 'Number 2',
 					sortOrder: 3,
-					sort: 'desc'
+					sort: 'desc',
+					type: 'number'
 				}
 			]
 		};
