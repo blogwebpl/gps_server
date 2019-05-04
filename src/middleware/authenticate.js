@@ -1,5 +1,7 @@
-import User from '../models/user';
+// eslint-disable-next-line no-unused-vars
+import Permission from '../models/permission';
 import Role from '../models/role';
+import User from '../models/user';
 
 const checkAccess = (req, res, next) => {
 	const token = req.header('x-auth');
