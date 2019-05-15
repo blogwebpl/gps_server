@@ -5,14 +5,14 @@ import { initDb, users } from '../seed/seed';
 import app from '../index';
 import supertest from 'supertest';
 
-describe('routes/collections.js', () => {
-	describe('GET /api/users', () => {
+describe('routes/columns.js', () => {
+	describe('GET /api/columns', () => {
 		before(async() => {
 			await initDb();
 		});
-		it('should return users', (done) => {
+		it('should return columns', (done) => {
 			supertest(app)
-				.get('/api/users')
+				.post('/api/columns')
 				.set('x-auth', users[2].token)
 				.expect(200)
 				.end((err) => {

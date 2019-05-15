@@ -4,6 +4,7 @@ import './db/mongoose';
 import bodyParser from 'body-parser';
 import bodyParserError from 'bodyparser-json-error';
 import collections from './routes/collections';
+import columns from './routes/columns';
 import config from './config';
 import express from 'express';
 import fs from 'fs';
@@ -30,6 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParserError.beautify({ status: 500 }));
 app.use('/', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 app.use('/api/me', me);
+app.use('/api/columns', columns);
 app.use('/api/users', collections('users'));
 /* ignore coverage */
 if (env !== 'test') {
