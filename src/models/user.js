@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role'
 	} ],
+	settings: {
+		type: Object,
+		default: {}
+	},
 	token: {
 		type: String
 	}

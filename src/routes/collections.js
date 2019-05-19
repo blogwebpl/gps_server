@@ -1,8 +1,8 @@
 import User from '../models/user';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
-import columns from '../functions/getColumns';
 import express from 'express';
+import getColumns from '../functions/getColumns';
 
 export default (collectionName) => {
 	const getDocuments = asyncMiddleware(async(req, res) => {
@@ -10,7 +10,7 @@ export default (collectionName) => {
 		const response = {
 			data,
 			crud: 15,
-			columns
+			columns: getColumns(req.user, collectionName)
 		};
 		res.send(response);
 	});

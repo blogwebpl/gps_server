@@ -18,6 +18,7 @@
     "bodyparser-json-error": "^1.0.0",
     "chai-datetime": "^1.5.0",
     "crc": "^3.8.0",
+    "deepmerge": "^3.2.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.11",
