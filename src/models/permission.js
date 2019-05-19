@@ -11,7 +11,15 @@ const permissionSchema = new mongoose.Schema({
 		unique: false,
 		minlength: 1
 	},
-	permissions: {
+	columns: {
+		type: Array
+	},
+	fields: {
+		type: Array
+	},
+	crud: {
+		type: Number,
+		default: 0
 	}
 });
 

@@ -1,4 +1,4 @@
-import User from './user';
+// import User from './user';
 import mongoose from '../db/mongoose';
 
 const roleSchema = new mongoose.Schema({
