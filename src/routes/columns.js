@@ -3,12 +3,12 @@ import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import deepmerge from 'deepmerge';
 import express from 'express';
-import getColumns from '../functions/getColumns';
+import getColumnsFunction from '../functions/getColumns';
 
-const postColumns = asyncMiddleware(async(req, res) => {
-	const collectionName = req.body.collectionName;
+const getColumns = asyncMiddleware(async(req, res) => {
+	const collectionName = req.params.collectionName;
 	const response = {
-		columns: getColumns(req.user, collectionName)
+		columns: getColumnsFunction(req.user, collectionName)
 	};
 	res.send(response);
 });
@@ -36,6 +36,6 @@ const postColumnsSort = asyncMiddleware(async(req, res) => {
 	res.sendStatus(200);
 });
 const router = new express.Router();
-router.post('/', authenticate, postColumns);
+router.get('/:collectionName', authenticate, getColumns);
 router.post('/sort', authenticate, postColumnsSort);
 export default router;
