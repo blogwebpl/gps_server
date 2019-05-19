@@ -6,7 +6,7 @@ import Role from '../models/role';
 import User from '../models/user';
 import config from '../config';
 import jwt from 'jsonwebtoken';
-import mongoose from '../db/mongoose';
+// import mongoose from '../db/mongoose';
 
 const env = process.env.NODE_ENV;
 const jwtSecret = config[env].JWT_SECRET;
@@ -22,6 +22,7 @@ const roleTwoId = new ObjectID();
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 const userThreeId = new ObjectID();
+const userFourId = new ObjectID();
 
 export const menuItems = [
 	{
@@ -99,7 +100,15 @@ export const roles = [
 	}
 ];
 
-const token = jwt.sign(
+const tokenOne = jwt.sign(
+	{
+		_id: userOneId.toHexString(),
+		exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365)
+	},
+	jwtSecret
+).toString();
+
+const tokenThree = jwt.sign(
 	{
 		_id: userThreeId.toHexString(),
 		exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365)
@@ -107,15 +116,44 @@ const token = jwt.sign(
 	jwtSecret
 ).toString();
 
+const tokenFour = jwt.sign(
+	{
+		_id: userFourId.toHexString(),
+		exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365)
+	},
+	jwtSecret
+).toString();
+
 export const users = [
+	// admin user with token and settings
 	{
 		_id: userOneId,
 		email: 'admin@admin.admin',
 		password: 'admin',
 		name: 'Administrator',
 		selectedRole: roleOneId,
-		roles: [roleOneId, roleTwoId]
+		roles: [roleOneId, roleTwoId],
+		settings: {
+			users: {
+				columns: [
+					{
+						key: 'name',
+						label: 'Name',
+						sortOrder: 1,
+						sort: 'asc'
+					},
+					{
+						key: 'email',
+						label: 'E-mail',
+						sortOrder: 2,
+						sort: 'asc'
+					}
+				]
+			}
+		},
+		token: tokenOne
 	},
+	// user without token and without settings
 	{
 		_id: userTwoId,
 		email: 'user@user.user',
@@ -124,6 +162,7 @@ export const users = [
 		selectedRole: roleTwoId,
 		roles: [roleTwoId]
 	},
+	// normal user with token and no settings
 	{
 		_id: userThreeId,
 		email: 'logged@user.user',
@@ -131,7 +170,17 @@ export const users = [
 		name: 'User',
 		selectedRole: roleTwoId,
 		roles: [roleTwoId],
-		token
+		token: tokenThree
+	},
+	// for future use
+	{
+		_id: userFourId,
+		email: 'logged2@user.user',
+		password: 'logged',
+		name: 'User ABC',
+		selectedRole: roleTwoId,
+		roles: [roleTwoId],
+		token: tokenFour
 	}
 ];
 
@@ -153,6 +202,7 @@ export const initDb = async() => {
 		await new User(users[0]).save();
 		await new User(users[1]).save();
 		await new User(users[2]).save();
+		await new User(users[3]).save();
 	} catch (err) {
 		/* ignore coverage */
 		console.log(err);
