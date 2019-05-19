@@ -26,7 +26,7 @@ const postColumnsSort = asyncMiddleware(async(req, res) => {
 		}
 	};
 	const currentSettings = req.user.settings;
-	if (currentSettings) {
+	if (Object.keys(currentSettings).length > 0) {
 		const overwriteMerge = (destinationArray, sourceArray, options) => (sourceArray);
 		newSettings = deepmerge(currentSettings, settings, { arrayMerge: overwriteMerge });
 	} else {
