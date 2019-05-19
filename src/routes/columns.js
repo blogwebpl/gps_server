@@ -6,10 +6,7 @@ import express from 'express';
 import getColumns from '../functions/getColumns';
 
 const postColumns = asyncMiddleware(async(req, res) => {
-	console.log('111');
 	const collectionName = req.body.collectionName;
-	console.log('2222');
-	console.log(getColumns(req.user, collectionName));
 	const response = {
 		columns: getColumns(req.user, collectionName)
 	};
