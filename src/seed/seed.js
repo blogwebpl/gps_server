@@ -75,7 +75,35 @@ export const permissions = [
 		_id: permissionOneId,
 		name: 'Users',
 		collectionName: 'users',
-		permissions: {}
+		columns: [
+			{
+				key: 'name',
+				label: 'Name',
+				sortOrder: 1,
+				sort: 'asc'
+			},
+			{
+				key: 'email',
+				label: 'E-mail',
+				sortOrder: 2,
+				sort: 'asc'
+			}
+		],
+		fields: [
+			{
+				key: 'name',
+				label: 'Name',
+				type: 'text',
+				required: true
+			},
+			{
+				key: 'email',
+				label: 'E-mail',
+				type: 'email',
+				required: true
+			}
+		],
+		crud: 15
 	},
 	{
 		_id: permissionTwoId,
