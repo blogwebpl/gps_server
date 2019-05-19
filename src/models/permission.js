@@ -20,6 +20,9 @@ const permissionSchema = new mongoose.Schema({
 	crud: {
 		type: Number,
 		default: 0
+	},
+	populate: {
+		type: Object
 	}
 });
 
