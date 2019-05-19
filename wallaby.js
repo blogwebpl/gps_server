@@ -24,7 +24,9 @@ module.exports = function(wallaby) {
 		},
 		debug: true,
 		workers: {
-			recycle: true
+			recycle: true,
+			initial: 1,
+			regular: 1
 		}
 	};
 };
