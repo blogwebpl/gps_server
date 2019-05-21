@@ -138,7 +138,12 @@ userSchema.statics.findByToken = function(token) {
 	return User.findOne({
 		'_id': decoded._id,
 		token
-	}).populate('selectedRole roles');
+	}).populate({
+		path: 'roles selectedRole',
+		populate: {
+			path: 'permissions'
+		}
+	});
 };
 
 userSchema.methods.removeToken = function(token) {
