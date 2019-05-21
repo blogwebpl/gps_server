@@ -184,6 +184,14 @@ const tokenFour = jwt.sign(
 	jwtSecret
 ).toString();
 
+const tokenFive = jwt.sign(
+	{
+		_id: userFiveId.toHexString(),
+		exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365)
+	},
+	jwtSecret
+).toString();
+
 export const users = [
 	// admin user with token and settings
 	{
@@ -232,24 +240,71 @@ export const users = [
 		roles: [roleTwoId],
 		token: tokenThree
 	},
-	// for future use
+	// user with 3 columns with keys like in role
 	{
 		_id: userFourId,
 		email: 'logged2@user.user',
 		password: 'logged',
 		name: 'User ABC',
-		selectedRole: roleTwoId,
-		roles: [roleTwoId],
+		selectedRole: roleOneId,
+		roles: [roleOneId],
+		settings: {
+			users: {
+				columns: [
+					{
+						key: 'name',
+						label: 'Name',
+						sortOrder: 3,
+						sort: 'desc'
+					},
+					{
+						key: 'email',
+						label: 'E-mail',
+						sortOrder: 1,
+						sort: 'asc'
+					},
+					{
+						key: 'selectedRole',
+						label: 'Selected role',
+						sortOrder: 2
+					}
+				]
+			}
+		},
 		token: tokenFour
 	},
-	// for future use
+	// user with 3 columns with keys not like in role
 	{
 		_id: userFiveId,
 		email: 'asd@user.user',
 		password: 'asd',
 		name: 'User ASD',
-		selectedRole: roleTwoId,
-		roles: [roleTwoId]
+		selectedRole: roleOneId,
+		roles: [roleOneId],
+		settings: {
+			users: {
+				columns: [
+					{
+						key: 'name',
+						label: 'Name',
+						sortOrder: 3,
+						sort: 'asc'
+					},
+					{
+						key: 'email',
+						label: 'E-mail',
+						sortOrder: 1,
+						sort: 'asc'
+					},
+					{
+						key: 'age',
+						label: 'Age',
+						sortOrder: 2
+					}
+				]
+			}
+		},
+		token: tokenFive
 	},
 	// for future use
 	{
@@ -290,6 +345,9 @@ export const initDb = async() => {
 		await new User(users[1]).save();
 		await new User(users[2]).save();
 		await new User(users[3]).save();
+		await new User(users[4]).save();
+		await new User(users[5]).save();
+		await new User(users[6]).save();
 	} catch (err) {
 		/* ignore coverage */
 		console.log(err);

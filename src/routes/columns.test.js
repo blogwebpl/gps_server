@@ -10,10 +10,36 @@ describe('routes/columns.js', () => {
 		before(async() => {
 			await initDb();
 		});
-		it('should return columns', (done) => {
+		it('should return columns to user with 2 collumns in settings', (done) => {
 			supertest(app)
 				.get('/api/columns/users')
 				.set('x-auth', users[0].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should return columns for user with 3 columns in settings', (done) => {
+			supertest(app)
+				.get('/api/columns/users')
+				.set('x-auth', users[3].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should return columns for user with 3 columns in settings but not like in role', (done) => {
+			supertest(app)
+				.get('/api/columns/users')
+				.set('x-auth', users[4].token)
 				.expect(200)
 				.end((err) => {
 					if (err) {

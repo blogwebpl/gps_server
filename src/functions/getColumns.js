@@ -1,23 +1,45 @@
-import deepmerge from 'deepmerge';
+import _ from 'lodash';
+import getPermissionForCollection from '../functions/getPermissionForCollection';
 export default (user, collectionName) => {
-	const columns = [
-		{
-			key: 'name',
-			label: 'Name',
-			sortOrder: 1,
-			sort: 'asc'
-		},
-		{
-			key: 'email',
-			label: 'E-mail',
-			sortOrder: 2,
-			sort: 'asc'
+	const getRoleColumns = () => {
+		const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);
+		const columns = permission ? permission.columns : [];
+		if (columns.length === 0) {
+			return [];
 		}
-	];
-	const overwriteMerge = (destinationArray, sourceArray, options) => (sourceArray);
-	const newColumns = user.settings && user.settings[ collectionName ] && user.settings[ collectionName ].columns;
-	if (!newColumns) {
-		return columns;
+		try {
+			return JSON.parse((JSON.stringify(columns)));
+		} catch (err) {
+			/* ignore coverage */
+			return [];
+		}
+	};
+	const getUserColumns = () => (user.settings && user.settings[ collectionName ] && user.settings[ collectionName ].columns);
+	const compareColumns = (columns1, columns2) => {
+		try {
+			const length1 = Object.keys(columns1).length;
+			const length2 = Object.keys(columns2).length;
+			if (length1 !== length2) {
+				return false;
+			}
+		} catch (err) {
+			return false;
+		}
+		let result = true;
+
+		columns1.forEach((k, index) => {
+			const key = columns1[ index ].key;
+			const i = _.findIndex(columns2, { key });
+			if (i === -1) {
+				result = false;
+			}
+		});
+		return result;
+	};
+	const roleColumns = getRoleColumns();
+	const userColumns = getUserColumns();
+	if (compareColumns(roleColumns, userColumns) === false) {
+		return roleColumns;
 	}
-	return deepmerge(columns, newColumns, { arrayMerge: overwriteMerge });
+	return userColumns;
 };
