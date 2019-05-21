@@ -8,7 +8,6 @@ const menuSchema = new mongoose.Schema({
 	},
 	items: [
 		{
-			position: Number,
 			item: {
 				type: mongoose.Schema.Types.ObjectId,
 				ref: 'MenuItem',
