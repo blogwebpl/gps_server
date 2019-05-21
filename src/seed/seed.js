@@ -6,13 +6,14 @@ import Role from '../models/role';
 import User from '../models/user';
 import config from '../config';
 import jwt from 'jsonwebtoken';
-// import mongoose from '../db/mongoose';
 
 const env = process.env.NODE_ENV;
 const jwtSecret = config[env].JWT_SECRET;
 
 const menuItemOneId = new ObjectID();
 const menuItemTwoId = new ObjectID();
+const menuItemThreeId = new ObjectID();
+const menuItemFourId = new ObjectID();
 const menuOneId = new ObjectID();
 const menuTwoId = new ObjectID();
 const permissionOneId = new ObjectID();
@@ -23,6 +24,9 @@ const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 const userThreeId = new ObjectID();
 const userFourId = new ObjectID();
+const userFiveId = new ObjectID();
+const userSixId = new ObjectID();
+const userSevenId = new ObjectID();
 
 export const menuItems = [
 	{
@@ -36,6 +40,18 @@ export const menuItems = [
 		icon: 'group_work',
 		label: 'Roles',
 		link: '/roles'
+	},
+	{
+		_id: menuItemThreeId,
+		icon: 'settings',
+		label: 'Settings',
+		link: ''
+	},
+	{
+		_id: menuItemFourId,
+		icon: 'map',
+		label: 'Map',
+		link: '/map'
 	}
 ];
 
@@ -45,12 +61,22 @@ export const menus = [
 		name: 'Admin menu',
 		items: [
 			{
-				position: 1,
-				item: menuItemOneId
+				// settings
+				item: menuItemThreeId
 			},
 			{
-				position: 2,
-				item: menuItemTwoId
+				// users
+				item: menuItemOneId,
+				parent: menuItemThreeId // settings
+			},
+			{
+				// roles
+				item: menuItemTwoId,
+				parent: menuItemThreeId // settings
+			},
+			{
+				// map
+				item: menuItemFourId
 			}
 		]
 	},
@@ -59,10 +85,12 @@ export const menus = [
 		name: 'User menu',
 		items: [
 			{
+				// users
 				position: 1,
 				item: menuItemOneId
 			},
 			{
+				// roles
 				position: 2,
 				item: menuItemTwoId
 			}
@@ -73,20 +101,25 @@ export const menus = [
 export const permissions = [
 	{
 		_id: permissionOneId,
-		name: 'Users',
+		name: 'Users - full',
 		collectionName: 'users',
 		columns: [
 			{
 				key: 'name',
 				label: 'Name',
-				sortOrder: 1,
+				sortOrder: 2,
 				sort: 'asc'
 			},
 			{
 				key: 'email',
 				label: 'E-mail',
-				sortOrder: 2,
+				sortOrder: 1,
 				sort: 'asc'
+			},
+			{
+				key: 'selectedRole',
+				label: 'Selected role',
+				sortOrder: 3
 			}
 		],
 		fields: [
@@ -108,8 +141,7 @@ export const permissions = [
 	{
 		_id: permissionTwoId,
 		name: 'Roles',
-		collectionName: 'roles',
-		permissions: {}
+		collectionName: 'roles'
 	}
 ];
 
@@ -118,7 +150,7 @@ export const roles = [
 		_id: roleOneId,
 		name: 'Admin',
 		menu: menuOneId,
-		permissions: [permissionOneId]
+		permissions: [permissionOneId, permissionTwoId]
 	},
 	{
 		_id: roleTwoId,
@@ -209,6 +241,33 @@ export const users = [
 		selectedRole: roleTwoId,
 		roles: [roleTwoId],
 		token: tokenFour
+	},
+	// for future use
+	{
+		_id: userFiveId,
+		email: 'asd@user.user',
+		password: 'asd',
+		name: 'User ASD',
+		selectedRole: roleTwoId,
+		roles: [roleTwoId]
+	},
+	// for future use
+	{
+		_id: userSixId,
+		email: 'fgh@user.user',
+		password: 'fgh',
+		name: 'User FGH',
+		selectedRole: roleTwoId,
+		roles: [roleTwoId]
+	},
+	// for future use
+	{
+		_id: userSevenId,
+		email: 'jkl@user.user',
+		password: 'jkl',
+		name: 'User JKL',
+		selectedRole: roleTwoId,
+		roles: [roleTwoId]
 	}
 ];
 
