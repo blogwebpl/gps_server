@@ -33,6 +33,9 @@ export default (user, collectionName) => {
 			if (i === -1) {
 				result = false;
 			}
+			if (index !== i) {
+				return false;
+			}
 		});
 		return result;
 	};

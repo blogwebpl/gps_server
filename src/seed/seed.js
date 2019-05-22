@@ -192,6 +192,14 @@ const tokenFive = jwt.sign(
 	jwtSecret
 ).toString();
 
+const tokenSix = jwt.sign(
+	{
+		_id: userSixId.toHexString(),
+		exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 365)
+	},
+	jwtSecret
+).toString();
+
 export const users = [
 	// admin user with token and settings
 	{
@@ -306,14 +314,38 @@ export const users = [
 		},
 		token: tokenFive
 	},
-	// for future use
+	// user with 3 columns with keys in different order
 	{
 		_id: userSixId,
 		email: 'fgh@user.user',
 		password: 'fgh',
 		name: 'User FGH',
 		selectedRole: roleTwoId,
-		roles: [roleTwoId]
+		roles: [roleTwoId],
+		settings: {
+			users: {
+				columns: [
+					{
+						key: 'email',
+						label: 'E-mail',
+						sortOrder: 3,
+						sort: 'desc'
+					},
+					{
+						key: 'name',
+						label: 'Name',
+						sortOrder: 1,
+						sort: 'asc'
+					},
+					{
+						key: 'selectedRole',
+						label: 'Selected role',
+						sortOrder: 2
+					}
+				]
+			}
+		},
+		token: tokenSix
 	},
 	// for future use
 	{

@@ -23,7 +23,7 @@ describe('routes/columns.js', () => {
 					done();
 				});
 		});
-		it('should return columns for user with 3 columns in settings', (done) => {
+		it('should return columns (from user settings) for user with 3 columns in settings', (done) => {
 			supertest(app)
 				.get('/api/columns/users')
 				.set('x-auth', users[3].token)
@@ -36,10 +36,23 @@ describe('routes/columns.js', () => {
 					done();
 				});
 		});
-		it('should return columns for user with 3 columns in settings but not like in role', (done) => {
+		it('should return columns (from role) for user with 3 columns in settings but not like in role', (done) => {
 			supertest(app)
 				.get('/api/columns/users')
 				.set('x-auth', users[4].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should return columns (from role) for user with 3 columns in settings but different order', (done) => {
+			supertest(app)
+				.get('/api/columns/users')
+				.set('x-auth', users[5].token)
 				.expect(200)
 				.end((err) => {
 					if (err) {
