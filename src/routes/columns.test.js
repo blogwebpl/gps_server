@@ -10,6 +10,7 @@ describe('routes/columns.js', () => {
 		before(async() => {
 			await initDb();
 		});
+		// TODO: test response body
 		it('should return columns to user with 2 collumns in settings', (done) => {
 			supertest(app)
 				.get('/api/columns/users')

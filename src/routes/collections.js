@@ -6,7 +6,7 @@ import getColumns from '../functions/getColumns';
 
 export default (collectionName) => {
 	const getDocuments = asyncMiddleware(async(req, res) => {
-		const data = await User.find({}).select('name email selectedRole').lean();
+		const data = await User.find({}).select('name email selectedRole').populate({ path: 'selectedRole', select: 'name' }).lean();
 		const response = {
 			data,
 			crud: 15,
