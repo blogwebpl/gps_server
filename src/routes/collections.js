@@ -14,7 +14,11 @@ export default (collectionName) => {
 		};
 		res.send(response);
 	});
+	const deleteDocuments = asyncMiddleware(async(req, res) => {
+		res.sendStatus(204);
+	});
 	const router = new express.Router();
 	router.get('/', authenticate, getDocuments);
+	router.delete('/', authenticate, deleteDocuments);
 	return router;
 };
