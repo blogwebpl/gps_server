@@ -7,6 +7,7 @@ import collections from './routes/collections';
 import columns from './routes/columns';
 import config from './config';
 import express from 'express';
+import fields from './routes/fields';
 import fs from 'fs';
 import headers from './middleware/headers';
 import http from 'http';
@@ -32,6 +33,7 @@ app.use(bodyParserError.beautify({ status: 500 }));
 app.use('/', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 app.use('/api/me', me);
 app.use('/api/columns', columns);
+app.use('/api/fields', fields);
 app.use('/api/users', collections('users'));
 /* ignore coverage */
 if (env !== 'test') {
