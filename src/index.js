@@ -14,6 +14,7 @@ import http from 'http';
 import https from 'spdy';
 import me from './routes/me';
 import path from 'path';
+import row from './routes/row';
 
 const env = process.env.NODE_ENV;
 const port = parseInt(config[env].PORT);
@@ -34,6 +35,7 @@ app.use('/', express.static(path.join(__dirname, '..', '..', 'client', 'build'))
 app.use('/api/me', me);
 app.use('/api/columns', columns);
 app.use('/api/fields', fields);
+app.use('/api/row', row);
 app.use('/api/users', collections('users'));
 /* ignore coverage */
 if (env !== 'test') {
