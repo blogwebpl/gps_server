@@ -67,29 +67,30 @@ userSchema.pre('save', function(next) {
 	}
 });
 
-// userSchema.pre('findOneAndUpdate', function(next) {
-// 	if (this.getUpdate().$set !== undefined) {
-// 		const user = this;
-// 		const password = this.getUpdate().$set.password;
-// 		if (password !== undefined) {
-// 			bcrypt.genSalt(10, (err, salt) => {
-// 				if (err) {
-// 					next(err);
-// 				}
-// 				bcrypt.hash(password, salt, (err, hash) => {
-// 					if (err) {
-// 						next(err);
-// 					}
-// 					user.findOneAndUpdate({}, { password: hash });
-// 				});
-// 			});
-// 		} else {
-// 			next();
-// 		}
-// 	} else {
-// 		next();
-// 	}
-// });
+userSchema.pre('updateOne', function(next) {
+	if (this.getUpdate() !== undefined) {
+		const user = this;
+		const password = this.getUpdate().password;
+		if (password !== undefined && password !== '') {
+			bcrypt.genSalt(10, (err, salt) => {
+				if (err) {
+					next(err);
+				}
+				bcrypt.hash(password, salt, (err, hash) => {
+					if (err) {
+						next(err);
+					}
+					user.findOneAndUpdate({}, { password: hash });
+					next();
+				});
+			});
+		} else {
+			next();
+		}
+	} else {
+		next();
+	}
+});
 
 userSchema.methods.generateToken = function() {
 	const user = this;

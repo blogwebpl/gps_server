@@ -27,7 +27,6 @@ const postRow = asyncMiddleware(async(req, res) => {
 		res.status(400).send(err.message);
 		return;
 	}
-	console.log(row);
 	res.sendStatus(200);
 });
 
