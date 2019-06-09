@@ -13,7 +13,7 @@ describe('routes/collections.js', () => {
 		it('should return users', (done) => {
 			supertest(app)
 				.get('/api/users')
-				.set('x-auth', users[2].token)
+				.set('x-auth', users[0].token)
 				.expect(200)
 				.end((err) => {
 					if (err) {
