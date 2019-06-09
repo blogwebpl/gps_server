@@ -1,12 +1,17 @@
-import User from '../models/user';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import express from 'express';
 import getColumns from '../functions/getColumns';
+import getModel from '../functions/getModel';
 
 export default (collectionName) => {
 	const getDocuments = asyncMiddleware(async(req, res) => {
-		const data = await User.find({}).select('name email selectedRole').populate({ path: 'selectedRole', select: 'name' }).lean();
+		// TODO: change to dynamic collection name
+		// TODO: get fields to select
+		// TODO: get populate
+		// TODO: get crud
+		// TODO: test can user read
+		const data = await getModel(collectionName).find({}).select('name email selectedRole').populate({ path: 'selectedRole', select: 'name' }).lean();
 		const response = {
 			data,
 			crud: 15,

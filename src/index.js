@@ -37,6 +37,8 @@ app.use('/api/columns', columns);
 app.use('/api/fields', fields);
 app.use('/api/row', row);
 app.use('/api/users', collections('users'));
+app.use('/api/roles', collections('roles'));
+
 /* ignore coverage */
 if (env !== 'test') {
 	server.listen(port, '0.0.0.0', () => {
