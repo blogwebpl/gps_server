@@ -1,5 +1,5 @@
 import { READ } from './crud';
-import User from '../models/user';
+import getModel from '../functions/getModel';
 import getPermissionForCollection from '../functions/getPermissionForCollection';
 export default async(user, collectionName, _id) => {
 	const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);
@@ -9,7 +9,7 @@ export default async(user, collectionName, _id) => {
 		return {};
 	}
 	try {
-		const row = await User.findById(_id).select(fields).lean();
+		const row = await getModel(collectionName).findById(_id).select(fields).lean();
 		return row;
 	} catch (err) {
 		/* ignore coverage */

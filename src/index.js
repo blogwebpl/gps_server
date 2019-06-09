@@ -36,8 +36,10 @@ app.use('/api/me', me);
 app.use('/api/columns', columns);
 app.use('/api/fields', fields);
 app.use('/api/row', row);
-app.use('/api/users', collections('users'));
-app.use('/api/roles', collections('roles'));
+const listOfCollections = [ 'users', 'roles', 'menuItems' ];
+listOfCollections.forEach((collection) => {
+	app.use(`/api/${collection}`, collections(collection));
+});
 
 /* ignore coverage */
 if (env !== 'test') {
