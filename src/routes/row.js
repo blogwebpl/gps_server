@@ -1,7 +1,7 @@
-import User from '../models/user';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import express from 'express';
+import getModel from '../functions/getModel';
 import getRowFunction from '../functions/getRow';
 const getRow = asyncMiddleware(async(req, res) => {
 	const collectionName = req.params.collectionName;
@@ -11,14 +11,14 @@ const getRow = asyncMiddleware(async(req, res) => {
 	res.send(response);
 });
 const postRow = asyncMiddleware(async(req, res) => {
-	// const collectionName = req.params.collectionName;
+	const collectionName = req.params.collectionName;
 	const row = req.body.row;
 	const _id = row._id;
 	try {
 		if (_id) {
-			await User.updateOne({ _id }, { ...row });
+			await getModel(collectionName).updateOne({ _id }, { ...row });
 		} else {
-			const data = new User({
+			const data = new getModel(collectionName)({
 				...row
 			});
 			await data.save();

@@ -1,9 +1,9 @@
-import Users from '../models/user';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import deepmerge from 'deepmerge';
 import express from 'express';
 import getColumnsFunction from '../functions/getColumns';
+import getModel from '../functions/getModel';
 
 const getColumns = asyncMiddleware(async(req, res) => {
 	const collectionName = req.params.collectionName;
@@ -32,7 +32,7 @@ const postColumnsSort = asyncMiddleware(async(req, res) => {
 	} else {
 		newSettings = settings;
 	}
-	await Users.updateOne({ _id: req.user._id }, { settings: newSettings });
+	await getModel(collectionName).updateOne({ _id: req.user._id }, { settings: newSettings });
 	res.sendStatus(200);
 });
 const router = new express.Router();
