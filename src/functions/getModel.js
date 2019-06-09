@@ -6,13 +6,13 @@ import User from '../models/user';
 
 export default (collectionName) => {
 	switch (collectionName) {
-		case 'menu':
+		case 'menus':
 			return Menu;
-		case 'menuItem':
+		case 'menuItems':
 			return MenuItem;
-		case 'permission':
+		case 'permissions':
 			return Permission;
-		case 'role':
+		case 'roles':
 			return Role;
 		case 'users':
 			return User;

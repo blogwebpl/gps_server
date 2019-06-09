@@ -17,7 +17,13 @@ export default (collectionName) => {
 		const columns = getColumns(req.user, collectionName);
 		const select = columns.map((column) => (column.key)).join(' ');
 		const populate = getPopulate(req.user, collectionName);
-		const data = await getModel(collectionName).find({}).select(select).populate(populate).lean();
+		let data = [];
+		try {
+			data = await getModel(collectionName).find().select(select).populate(populate).lean();
+		} catch (err) {
+			res.status(500).send(err.message);
+			return;
+		}
 		const response = {
 			data,
 			crud,
