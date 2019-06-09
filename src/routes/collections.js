@@ -1,3 +1,4 @@
+import { READ } from '../functions/crud';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import express from 'express';
@@ -8,11 +9,14 @@ import getPopulate from '../functions/getPopulate';
 
 export default (collectionName) => {
 	const getDocuments = asyncMiddleware(async(req, res) => {
-		// TODO: test can user read
+		const crud = getCRUD(req.user, collectionName);
+		if (!(crud & READ)) {
+			res.send(401);
+			return;
+		}
 		const columns = getColumns(req.user, collectionName);
 		const select = columns.map((column) => (column.key)).join(' ');
 		const populate = getPopulate(req.user, collectionName);
-		const crud = getCRUD(req.user, collectionName);
 		const data = await getModel(collectionName).find({}).select(select).populate(populate).lean();
 		const response = {
 			data,
