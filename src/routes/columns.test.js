@@ -40,7 +40,7 @@ describe('routes/columns.js', () => {
 		it('should return columns (from role) for user with 3 columns in settings but not like in role', (done) => {
 			supertest(app)
 				.get('/api/columns/users')
-				.set('x-auth', users[4].token)
+				.set('x-auth', users[0].token)
 				.expect(200)
 				.end((err) => {
 					if (err) {

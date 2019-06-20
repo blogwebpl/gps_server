@@ -6,7 +6,7 @@ import getRowFunction from '../functions/getRow';
 const getRow = asyncMiddleware(async(req, res) => {
 	const collectionName = req.params.collectionName;
 	const response = {
-		row: await getRowFunction(req.user, collectionName, req.query._id)
+		...await getRowFunction(req.user, collectionName, req.query._id)
 	};
 	res.send(response);
 });

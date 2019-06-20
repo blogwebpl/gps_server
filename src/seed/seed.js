@@ -18,6 +18,7 @@ const menuOneId = new ObjectID();
 const menuTwoId = new ObjectID();
 const permissionOneId = new ObjectID();
 const permissionTwoId = new ObjectID();
+const permissionThreeId = new ObjectID();
 const roleOneId = new ObjectID();
 const roleTwoId = new ObjectID();
 const userOneId = new ObjectID();
@@ -142,6 +143,36 @@ export const permissions = [
 		_id: permissionTwoId,
 		name: 'Roles',
 		collectionName: 'roles'
+	},
+	{
+		_id: permissionThreeId,
+		name: 'Menu - full',
+		collectionName: 'menus',
+		columns: [
+			{
+				'key': 'name',
+				'label': 'Name',
+				'sortOrder': 1,
+				'sort': 'asc'
+			}
+		],
+		fields: [
+			{
+				key: 'name',
+				label: 'Name',
+				type: 'text',
+				required: true
+			},
+			{
+				key: 'items',
+				label: 'Items',
+				type: 'multiselect',
+				collectionName: 'menuItems',
+				collectionField: 'label',
+				required: false
+			}
+		],
+		crud: 15
 	}
 ];
 
@@ -150,13 +181,13 @@ export const roles = [
 		_id: roleOneId,
 		name: 'Admin',
 		menu: menuOneId,
-		permissions: [permissionOneId, permissionTwoId]
+		permissions: [permissionOneId, permissionTwoId, permissionThreeId]
 	},
 	{
 		_id: roleTwoId,
 		name: 'User',
 		menu: menuTwoId,
-		permissions: [permissionTwoId]
+		permissions: [permissionTwoId, permissionThreeId]
 	}
 ];
 
@@ -371,6 +402,7 @@ export const initDb = async() => {
 		await new Menu(menus[1]).save();
 		await new Permission(permissions[0]).save();
 		await new Permission(permissions[1]).save();
+		await new Permission(permissions[2]).save();
 		await new Role(roles[0]).save();
 		await new Role(roles[1]).save();
 		await new User(users[0]).save();

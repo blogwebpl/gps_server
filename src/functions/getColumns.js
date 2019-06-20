@@ -1,5 +1,11 @@
 import _ from 'lodash';
 import getPermissionForCollection from '../functions/getPermissionForCollection';
+
+/**
+ * @param {string} user
+ * @param {string} collectionName
+ * @return {Array<object>} list of columns
+ */
 export default (user, collectionName) => {
 	const getRoleColumns = () => {
 		const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);

@@ -24,5 +24,18 @@ describe('routes/fields.js', () => {
 					done();
 				});
 		});
+		it('should return fields to menu', (done) => {
+			supertest(app)
+				.get('/api/fields/menus')
+				.set('x-auth', users[0].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
 	});
 });

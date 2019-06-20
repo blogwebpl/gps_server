@@ -4,6 +4,10 @@ import Permission from '../models/permission';
 import Role from '../models/role';
 import User from '../models/user';
 
+/**
+ * @param {string} collectionName
+ * @return model
+ */
 export default (collectionName) => {
 	switch (collectionName) {
 		case 'menus':

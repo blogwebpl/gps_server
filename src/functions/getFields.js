@@ -1,7 +1,9 @@
-import getPermissionForCollection from '../functions/getPermissionForCollection';
-
-export default (user, collectionName) => {
-	const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);
+/**
+ * @param {string} permission
+ * @param {string} collectionName
+ * @return {Array<object>} list of fields
+ */
+export default (permission, collectionName) => {
 	const fields = permission ? permission.fields : [];
 	try {
 		return JSON.parse((JSON.stringify(fields)));
