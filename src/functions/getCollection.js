@@ -13,6 +13,7 @@ export default async(user, collectionName) => {
 	const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);
 	const crud = permission.crud;
 	if (!(crud & READ)) {
+		/* ignore coverage */
 		return [];
 	}
 	try {

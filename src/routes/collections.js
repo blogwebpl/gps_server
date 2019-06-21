@@ -15,7 +15,6 @@ export default (collectionName) => {
 			return;
 		}
 		const crud = getCRUD(req.user, collectionName);
-		console.log(crud);
 		if (!(crud & READ)) {
 			res.send(401);
 			return;

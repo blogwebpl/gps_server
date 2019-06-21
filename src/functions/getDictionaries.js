@@ -6,6 +6,7 @@ import getModel from '../functions/getModel';
  * @return {Array<object>} [promise] dictionaries
  */
 export default async(permission, collectionName) => {
+	/* ignore coverage */
 	const ds = (permission ? permission.fields.map((field) => (field.collectionName ? [ field.collectionName, field.key, field.collectionField ] : false)) : []);
 	const dictionaries = {};
 	await asyncForEach(ds, async(d) => {

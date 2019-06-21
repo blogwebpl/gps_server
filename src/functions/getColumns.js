@@ -37,9 +37,11 @@ export default (user, collectionName) => {
 			const key = columns1[ index ].key;
 			const i = _.findIndex(columns2, { key });
 			if (i === -1) {
+				/* ignore coverage */
 				result = false;
 			}
 			if (index !== i) {
+				/* ignore coverage */
 				return false;
 			}
 		});

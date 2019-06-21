@@ -15,8 +15,10 @@ export default (collectionName) => {
 		case 'menuItems':
 			return MenuItem;
 		case 'permissions':
+			/* ignore coverage */
 			return Permission;
 		case 'roles':
+			/* ignore coverage */
 			return Role;
 		case 'users':
 			return User;
