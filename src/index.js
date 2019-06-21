@@ -13,6 +13,7 @@ import headers from './middleware/headers';
 import http from 'http';
 import https from 'spdy';
 import me from './routes/me';
+import menu from './routes/menu';
 import path from 'path';
 import row from './routes/row';
 
@@ -36,6 +37,7 @@ app.use('/api/me', me);
 app.use('/api/columns', columns);
 app.use('/api/fields', fields);
 app.use('/api/row', row);
+app.use('/api/menu', menu);
 const listOfCollections = [ 'users', 'roles', 'menus', 'menuItems' ];
 listOfCollections.forEach((collection) => {
 	app.use(`/api/${collection}`, collections(collection));
