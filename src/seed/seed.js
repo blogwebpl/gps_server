@@ -1,3 +1,5 @@
+import 'idempotent-babel-polyfill';
+
 import Menu from '../models/menu';
 import MenuItem from '../models/menuItem';
 import { ObjectID } from 'mongodb';

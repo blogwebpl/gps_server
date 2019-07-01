@@ -6,7 +6,7 @@ module.exports = function(wallaby) {
 			ignoreCoverage: /ignore coverage/
 		},
 		files: [
-			'src/**/*.js', '!src/**/*.test.js'
+			'src/*.js', 'src/**/*.js', '!src/**/*.test.js'
 		],
 		tests: [
 			'src/**/*.test.js'
