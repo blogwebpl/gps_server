@@ -13,7 +13,10 @@ const checkAccess = (req, res, next) => {
 			}
 			req.user = user;
 			req.token = token;
-			const selectedRole = user.selectedRole;
+			let selectedRole = user.selectedRole;
+			if (!selectedRole) {
+				selectedRole = user.roles[ 0 ];
+			}
 			Role.findById(selectedRole).populate('permissions').then(
 				(role) => {
 					req.role = role;

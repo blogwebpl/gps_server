@@ -2,6 +2,7 @@ import User from '../models/user';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import express from 'express';
+import getRoles from '../functions/getRoles';
 import { isEmail } from 'validator';
 import pick from 'lodash/pick';
 
@@ -47,8 +48,61 @@ const postLogout = asyncMiddleware(async(req, res) => {
 	}
 });
 
+const getProfile = asyncMiddleware(async(req, res) => {
+	const userRoles = await User.findById(req.user).populate({
+		path: 'roles selectedRole'
+	});
+	try {
+		const roles = userRoles.roles.map((role) => ({
+			value: role._id,
+			label: role.name
+		}));
+		const selectedRole = {
+			value: userRoles.selectedRole._id,
+			label: userRoles.selectedRole.name
+		};
+		res.send({
+			roles,
+			selectedRole
+		});
+	} catch (err) {
+		res.send(500);
+	}
+});
+
+const postRole = asyncMiddleware(async(req, res) => {
+	const userId = req.user._id;
+	const roles = await getRoles(userId);
+	const selectedRole = req.body.selectedRole;
+	const index = roles.indexOf(selectedRole);
+	if (index > -1) {
+		await User.findOneAndUpdate({ _id: userId }, { $set: { selectedRole } });
+		res.sendStatus(204);
+	} else {
+		res.sendStatus(401);
+	}
+});
+
+const postPassword = asyncMiddleware(async(req, res) => {
+	const password = req.body.password;
+	if (!password) {
+		res.send(400);
+		return;
+	}
+	try {
+		const userId = req.user._id;
+		await User.updateOne({ _id: userId }, { password });
+		res.sendStatus(204);
+	} catch (err) {
+		res.sendStatus(500);
+	}
+});
+
 const router = new express.Router();
 
+router.get('/profile', authenticate, getProfile);
+router.post('/role', authenticate, postRole);
+router.post('/password', authenticate, postPassword);
 router.post('/login', postLogin);
 router.post('/logout', authenticate, postLogout);
 
