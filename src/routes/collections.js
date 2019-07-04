@@ -48,8 +48,23 @@ export default (collectionName) => {
 			res.status(500).send(err.message);
 		}
 	});
+	const getFieldsList = asyncMiddleware(async(req, res) => {
+		try {
+			const fieldsList = [];
+			getModel(collectionName).schema.eachPath((path) => {
+				fieldsList.push(path);
+			});
+			res.send({
+				fields: fieldsList
+			});
+		} catch (err) {
+			res.send(500);
+		}
+	});
+
 	const router = new express.Router();
 	router.get('/', authenticate, getDocuments);
+	router.get('/fieldsList', authenticate, getFieldsList);
 	router.delete('/', authenticate, deleteDocuments);
 	return router;
 };
