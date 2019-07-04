@@ -4,6 +4,7 @@ import './db/mongoose';
 import bodyParser from 'body-parser';
 import bodyParserError from 'bodyparser-json-error';
 import collections from './routes/collections';
+import collectionsList from './routes/collectionsList';
 import columns from './routes/columns';
 import config from './config';
 import express from 'express';
@@ -38,7 +39,9 @@ app.use('/api/columns', columns);
 app.use('/api/fields', fields);
 app.use('/api/row', row);
 app.use('/api/menu', menu);
-const listOfCollections = [ 'users', 'roles', 'menus', 'menuItems' ];
+app.use('/api/collectionsList', collectionsList);
+app.use('/api/fieldsList', collectionsList);
+const listOfCollections = [ 'users', 'roles', 'menus', 'menuItems', 'permissions' ];
 listOfCollections.forEach((collection) => {
 	app.use(`/api/${collection}`, collections(collection));
 });

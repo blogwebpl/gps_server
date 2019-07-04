@@ -11,7 +11,7 @@ const menuItemSchema = new mongoose.Schema({
 		type: String,
 		required: false
 	}
-});
+}, { collection: 'menuItems' });
 
 const MenuItem = mongoose.models.MenuItem || mongoose.model('MenuItem', menuItemSchema);
 
