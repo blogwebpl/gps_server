@@ -71,6 +71,7 @@ userSchema.pre('updateOne', function(next) {
 	if (this.getUpdate() !== undefined) {
 		const user = this;
 		const password = this.getUpdate().password;
+		/* ignore coverage */
 		if (password !== undefined && password !== '') {
 			bcrypt.genSalt(10, (err, salt) => {
 				if (err) {
@@ -85,9 +86,11 @@ userSchema.pre('updateOne', function(next) {
 				});
 			});
 		} else {
+			/* ignore coverage */
 			next();
 		}
 	} else {
+		/* ignore coverage */
 		next();
 	}
 });

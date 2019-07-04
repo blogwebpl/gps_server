@@ -144,5 +144,18 @@ describe('routes/columns.js', () => {
 					done();
 				});
 		});
+		it('should get fields list for user', (done) => {
+			supertest(app)
+				.get('/api/users/fieldsList')
+				.set('x-auth', users[0].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
 	});
 });

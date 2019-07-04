@@ -41,5 +41,21 @@ describe('routes/collections.js', () => {
 					done();
 				});
 		});
+		it('should delete users', (done) => {
+			supertest(app)
+				.delete('/api/users')
+				.set('x-auth', users[0].token)
+				.send({
+					ids: [ users[ 0 ]._id, users[ 1 ]._id ]
+				})
+				.expect(204)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
 	});
 });

@@ -18,13 +18,16 @@ const postRow = asyncMiddleware(async(req, res) => {
 		if (_id) {
 			await getModel(collectionName).updateOne({ _id }, { ...row });
 		} else {
-			const data = new getModel(collectionName)({
+			const Model = getModel(collectionName);
+			const data = new Model({
 				...row
 			});
 			await data.save();
 		}
 	} catch (err) {
+		/* ignore coverage */
 		res.status(400).send(err.message);
+		/* ignore coverage */
 		return;
 	}
 	res.sendStatus(200);

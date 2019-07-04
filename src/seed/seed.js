@@ -89,12 +89,10 @@ export const menus = [
 		items: [
 			{
 				// users
-				position: 1,
 				item: menuItemOneId
 			},
 			{
 				// roles
-				position: 2,
 				item: menuItemTwoId
 			}
 		]
@@ -277,7 +275,7 @@ export const users = [
 		email: 'logged@user.user',
 		password: 'logged',
 		name: 'User',
-		selectedRole: roleTwoId,
+		// selectedRole: roleTwoId,
 		roles: [roleTwoId],
 		token: tokenThree
 	},
@@ -400,6 +398,8 @@ export const initDb = async() => {
 		await User.deleteMany();
 		await new MenuItem(menuItems[0]).save();
 		await new MenuItem(menuItems[1]).save();
+		await new MenuItem(menuItems[2]).save();
+		await new MenuItem(menuItems[3]).save();
 		await new Menu(menus[0]).save();
 		await new Menu(menus[1]).save();
 		await new Permission(permissions[0]).save();

@@ -12,7 +12,6 @@ export default async(user) => {
 			.lean()
 			.populate({ path: 'items.item' });
 		doc.items.forEach(({ item }, index) => {
-			// doc.items[index].position = index + 1;
 			doc.items[index].icon = item.icon;
 			doc.items[index].label = item.label;
 			if (item.link) {
@@ -24,6 +23,7 @@ export default async(user) => {
 		});
 		return doc.items;
 	} catch (err) {
+		/* ignore coverage */
 		return [];
 	}
 };

@@ -49,23 +49,23 @@ const postLogout = asyncMiddleware(async(req, res) => {
 });
 
 const getProfile = asyncMiddleware(async(req, res) => {
-	const userRoles = await User.findById(req.user).populate({
-		path: 'roles selectedRole'
-	});
+	const user = req.user;
 	try {
-		const roles = userRoles.roles.map((role) => ({
+		const roles = user.roles.map((role) => ({
 			value: role._id,
 			label: role.name
 		}));
+
 		const selectedRole = {
-			value: userRoles.selectedRole._id,
-			label: userRoles.selectedRole.name
+			value: user.selectedRole._id,
+			label: user.selectedRole.name
 		};
 		res.send({
 			roles,
 			selectedRole
 		});
 	} catch (err) {
+		/* ignore coverage */
 		res.send(500);
 	}
 });
@@ -79,6 +79,7 @@ const postRole = asyncMiddleware(async(req, res) => {
 		await User.findOneAndUpdate({ _id: userId }, { $set: { selectedRole } });
 		res.sendStatus(204);
 	} else {
+		/* ignore coverage */
 		res.sendStatus(401);
 	}
 });
@@ -94,6 +95,7 @@ const postPassword = asyncMiddleware(async(req, res) => {
 		await User.updateOne({ _id: userId }, { password });
 		res.sendStatus(204);
 	} catch (err) {
+		/* ignore coverage */
 		res.sendStatus(500);
 	}
 });

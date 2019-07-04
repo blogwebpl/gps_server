@@ -7,6 +7,7 @@ const getCollectionsList = asyncMiddleware(async(req, res) => {
 	const listOfCollections = [];
 	mongoose.connection.db.collections((err, collections) => {
 		if (err) {
+			/* ignore coverage */
 			res.sendStatus(500);
 		}
 		collections.forEach((data) => {

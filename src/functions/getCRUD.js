@@ -7,6 +7,7 @@ import getPermissionForCollection from '../functions/getPermissionForCollection'
  */
 export default (user, collectionName) => {
 	if (!collectionName) {
+		/* ignore coverage */
 		return 0;
 	}
 	const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);

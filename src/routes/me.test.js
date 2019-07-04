@@ -1,6 +1,6 @@
 import 'idempotent-babel-polyfill';
 
-import { initDb, users } from '../seed/seed';
+import { initDb, roles, users } from '../seed/seed';
 
 import User from '../models/user';
 import app from '../index';
@@ -9,7 +9,7 @@ import supertest from 'supertest';
 
 describe('routes/me.js', () => {
 	describe('POST /api/me/login', () => {
-		before(async() => {
+		beforeEach(async() => {
 			await initDb();
 		});
 		it('should login user and return auth token', (done) => {
@@ -28,6 +28,48 @@ describe('routes/me.js', () => {
 					done();
 				});
 		});
+		it('should get profile', (done) => {
+			supertest(app)
+				.get('/api/me/profile')
+				.set('x-auth', users[0].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should get profile for user without selected role', (done) => {
+			supertest(app)
+				.get('/api/me/profile')
+				.set('x-auth', users[2].token)
+				.expect(200)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should post role', (done) => {
+			supertest(app)
+				.post('/api/me/role')
+				.set('x-auth', users[ 0 ].token)
+				.send({
+					selectedRole: roles[ 0 ]._id
+				})
+				.expect(204)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
 		it('should reject unknown email', (done) => {
 			supertest(app)
 				.post('/api/me/login')
@@ -36,6 +78,38 @@ describe('routes/me.js', () => {
 					password: users[0].password
 				})
 				.expect(401)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should post password', (done) => {
+			supertest(app)
+				.post('/api/me/password')
+				.set('x-auth', users[ 0 ].token)
+				.send({
+					password: 'abc'
+				})
+				.expect(204)
+				.end((err) => {
+					if (err) {
+						done(new Error(err.message));
+						return;
+					}
+					done();
+				});
+		});
+		it('should reject empty password', (done) => {
+			supertest(app)
+				.post('/api/me/password')
+				.set('x-auth', users[ 0 ].token)
+				.send({
+					password: ''
+				})
+				.expect(400)
 				.end((err) => {
 					if (err) {
 						done(new Error(err.message));

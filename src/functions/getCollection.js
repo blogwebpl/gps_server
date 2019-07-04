@@ -9,6 +9,7 @@ import getPopulate from '../functions/getPopulate';
  * @param {string} collectionName
  * @return {Array<object>} [promise] documents
  */
+
 export default async(user, collectionName) => {
 	const permission = getPermissionForCollection(user.selectedRole.permissions, collectionName);
 	const crud = permission.crud;
