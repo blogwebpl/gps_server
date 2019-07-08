@@ -61,14 +61,16 @@ export default (collectionName) => {
 		try {
 			const fieldsList = [];
 			getModel(collectionName).schema.eachPath((path) => {
-				fieldsList.push(path);
+				if (!path.startsWith('_')) {
+					fieldsList.push(path);
+				}
 			});
 			res.send({
 				fields: fieldsList
 			});
 		} catch (err) {
 			/* ignore coverage */
-			res.send(500);
+			res.sendStatus(500);
 		}
 	});
 
