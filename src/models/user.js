@@ -116,6 +116,7 @@ userSchema.statics.findByCredentials = function(email, password) {
 				return Promise.reject(new Error('user not found'));
 			}
 			return new Promise((resolve, reject) => {
+				// resolve(user); // login without password
 				bcrypt.compare(password, user.password, (err, res) => {
 					/* ignore coverage */
 					if (err) {
