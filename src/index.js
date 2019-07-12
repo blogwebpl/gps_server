@@ -1,6 +1,10 @@
 import 'idempotent-babel-polyfill';
 import './db/mongoose';
 
+import FmData from './models/fmData';
+import FmLast from './models/fmLast';
+import FmServer from 'fm';
+import Imei from './models/imei';
 import bodyParser from 'body-parser';
 import bodyParserError from 'bodyparser-json-error';
 import collections from './routes/collections';
@@ -50,6 +54,13 @@ listOfCollections.forEach((collection) => {
 if (env !== 'test') {
 	server.listen(port, '0.0.0.0', () => {
 		console.log(`Server [${env}] listening on port ${port}`);
+		const fmServer = new FmServer({
+			fmPort: 5005,
+			Imei,
+			FmData,
+			FmLast
+		});
+		fmServer.start();
 	});
 }
 export default app;
