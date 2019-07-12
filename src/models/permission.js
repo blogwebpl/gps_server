@@ -15,7 +15,9 @@ const permissionSchema = new mongoose.Schema({
 		type: Array
 	},
 	tabs: {
-		type: Array
+		type: Array,
+		required: true,
+		default: []
 	},
 	fields: {
 		type: Array
