@@ -34,10 +34,10 @@ const userSchema = new mongoose.Schema({
 		ref: 'Role',
 		required: false
 	},
-	roles: [ {
+	roles: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Role'
-	} ],
+	}],
 	settings: {
 		type: Object,
 		default: {}
@@ -141,7 +141,7 @@ userSchema.statics.findByToken = function(token) {
 		return Promise.reject(err);
 	}
 	return User.findOne({
-		'_id': decoded._id,
+		_id: decoded._id,
 		token
 	}).populate({
 		path: 'roles selectedRole',
