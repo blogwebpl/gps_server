@@ -7,12 +7,17 @@ const usersImeiSchema = new mongoose.Schema({
 		ref: 'User'
 	},
 	imei: {
-		type: String,
-		require: true
+		require: true,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Imei'
 	},
 	label: {
 		type: String,
 		require: true
+	},
+	live: {
+		type: Boolean,
+		default: false
 	}
 });
 

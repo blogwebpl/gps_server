@@ -9,5 +9,5 @@ export default (permissions, collectionName) => {
 	if (index === -1) {
 		return;
 	}
-	return permissions[ index ];
+	return permissions[index];
 };
