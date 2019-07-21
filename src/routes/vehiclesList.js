@@ -10,7 +10,6 @@ const getVehicles = asyncMiddleware(async(req, res) => {
 		const usersImeis = await UsersImei.find({ user: req.user._id }).populate({ path: 'imei', select: 'imei -_id' });
 		const vehicles = [];
 		await asyncForEach(usersImeis, async(usersVehicle) => {
-			console.log(usersVehicle);
 			if (usersVehicle.live) {
 				const liveData = await FmLast.findOne({ imei: usersVehicle.imei.imei });
 				vehicles.push({
