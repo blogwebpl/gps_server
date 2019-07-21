@@ -19,12 +19,14 @@ const getVehicles = asyncMiddleware(async(req, res) => {
 					gps: liveData.gps,
 					io: liveData.io,
 					time: liveData.time,
-					st: liveData.st
+					st: liveData.st,
+					show: true
 				});
 			} else {
 				vehicles.push({
 					name: usersVehicle.name,
-					imei: usersVehicle.imei.imei
+					imei: usersVehicle.imei.imei,
+					show: false
 				});
 			}
 		});
