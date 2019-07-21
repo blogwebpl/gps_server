@@ -19,7 +19,7 @@ export default (collectionName) => {
 		const crud = getCRUD(req.user, collectionName);
 		if (!(crud & READ)) {
 			/* ignore coverage */
-			res.send(401);
+			res.sendStatus(401);
 			/* ignore coverage */
 			return;
 		}

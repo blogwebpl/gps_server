@@ -1,11 +1,14 @@
 import 'idempotent-babel-polyfill';
 
+import FmLast from '../models/fmLast';
+import Imei from '../models/imei';
 import Menu from '../models/menu';
 import MenuItem from '../models/menuItem';
 import { ObjectID } from 'mongodb';
 import Permission from '../models/permission';
 import Role from '../models/role';
 import User from '../models/user';
+import UsersImei from '../models/usersImei';
 import config from '../config';
 import jwt from 'jsonwebtoken';
 
@@ -30,6 +33,9 @@ const userFourId = new ObjectID();
 const userFiveId = new ObjectID();
 const userSixId = new ObjectID();
 const userSevenId = new ObjectID();
+const imeiOneId = new ObjectID();
+const usersImeiOneId = new ObjectID();
+const fmLastOneId = new ObjectID();
 
 export const menuItems = [
 	{
@@ -150,10 +156,10 @@ export const permissions = [
 		collectionName: 'menus',
 		columns: [
 			{
-				'key': 'name',
-				'label': 'Name',
-				'sortOrder': 1,
-				'sort': 'asc'
+				key: 'name',
+				label: 'Name',
+				sortOrder: 1,
+				sort: 'asc'
 			}
 		],
 		fields: [
@@ -389,6 +395,66 @@ export const users = [
 	}
 ];
 
+export const imeis = [
+	{
+		_id: imeiOneId,
+		allow: true,
+		imei: '352094082752483',
+		name: 'car'
+	}
+];
+
+export const usersImeis = [
+	{
+		_id: usersImeiOneId,
+		live: true,
+		user: userOneId,
+		imei: imeiOneId,
+		name: 'car1'
+	}
+];
+
+export const fmLasts = [
+	{
+		_id: fmLastOneId,
+		imei: '352094082752483',
+		gps: {
+			pos: [
+				52.1454366,
+				19.1314566
+			],
+			alt: 0,
+			ang: 0,
+			sat: 0,
+			spd: 0
+		},
+		io: [
+			[
+				200,
+				0
+			],
+			[
+				66,
+				13791
+			],
+			[
+				24,
+				0
+			],
+			[
+				67,
+				3995
+			],
+			[
+				68,
+				0
+			]
+		],
+		st: new Date('2019-07-21T12:18:27.342+02:00').toISOString(),
+		time: new Date('2019-07-21T12:19:26.000+02:00').toISOString()
+	}
+];
+
 export const initDb = async() => {
 	try {
 		await MenuItem.deleteMany();
@@ -396,6 +462,9 @@ export const initDb = async() => {
 		await Permission.deleteMany();
 		await Role.deleteMany();
 		await User.deleteMany();
+		await Imei.deleteMany();
+		await UsersImei.deleteMany();
+		await FmLast.deleteMany();
 		await new MenuItem(menuItems[0]).save();
 		await new MenuItem(menuItems[1]).save();
 		await new MenuItem(menuItems[2]).save();
@@ -414,6 +483,9 @@ export const initDb = async() => {
 		await new User(users[4]).save();
 		await new User(users[5]).save();
 		await new User(users[6]).save();
+		await new Imei(imeis[0]).save();
+		await new UsersImei(usersImeis[0]).save();
+		await new FmLast(fmLasts[0]).save();
 	} catch (err) {
 		/* ignore coverage */
 		console.log(err);

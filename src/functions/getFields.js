@@ -9,6 +9,7 @@ export default (permission, collectionName) => {
 	try {
 		return JSON.parse((JSON.stringify(fields)));
 	} catch (err) {
+		console.log(err);
 		/* ignore coverage */
 		return [];
 	}

@@ -21,11 +21,15 @@ import me from './routes/me';
 import menu from './routes/menu';
 import path from 'path';
 import row from './routes/row';
+import vehiclesList from './routes/vehiclesList';
+
+// import morgan from 'morgan';
 
 const env = process.env.NODE_ENV;
 const port = parseInt(config[env].PORT);
 
 const app = express();
+// app.use(morgan('combined'));
 /* ignore coverage */
 const httpsOptions = (config[env].HTTPS === true) ? {
 	ca: fs.readFileSync(path.join(config[env].CA_PATH, config[env].CA_FILE)),
@@ -44,8 +48,8 @@ app.use('/api/fields', fields);
 app.use('/api/row', row);
 app.use('/api/menu', menu);
 app.use('/api/collectionsList', collectionsList);
-app.use('/api/fieldsList', collectionsList);
-const listOfCollections = ['users', 'roles', 'menus', 'menuItems', 'permissions'];
+app.use('/api/vehiclesList', vehiclesList);
+const listOfCollections = ['users', 'roles', 'imeis', 'menus', 'menuItems', 'permissions', 'usersImeis'];
 listOfCollections.forEach((collection) => {
 	app.use(`/api/${collection}`, collections(collection));
 });

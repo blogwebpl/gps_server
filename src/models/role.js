@@ -11,10 +11,10 @@ const roleSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Menu'
 	},
-	permissions: [ {
+	permissions: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Permission'
-	} ]
+	}]
 });
 
 // roleSchema.pre('remove', function(next) {
