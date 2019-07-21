@@ -15,6 +15,10 @@ const getColumns = asyncMiddleware(async(req, res) => {
 const postColumnsSort = asyncMiddleware(async(req, res) => {
 	const collectionName = req.body.collectionName;
 	const columns = req.body.columns;
+	columns.forEach((column, index) => {
+		delete columns[index].label;
+		delete columns[index].type;
+	});
 	if (!collectionName || !columns) {
 		res.sendStatus(400);
 		return;

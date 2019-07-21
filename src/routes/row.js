@@ -1,8 +1,10 @@
+import _ from 'lodash';
 import asyncMiddleware from '../middleware/asyncMiddleware';
 import authenticate from '../middleware/authenticate';
 import express from 'express';
 import getModel from '../functions/getModel';
 import getRowFunction from '../functions/getRow';
+
 const getRow = asyncMiddleware(async(req, res) => {
 	const collectionName = req.params.collectionName;
 	const response = {
@@ -14,7 +16,51 @@ const postRow = asyncMiddleware(async(req, res) => {
 	const collectionName = req.params.collectionName;
 	const row = req.body.row;
 	const _id = row._id;
+	const language = req.body.language || 'en';
 	try {
+		if (row.label) {
+			let oldLabel = {};
+			if (_id) {
+				const doc = await getModel(collectionName).findById(_id);
+				oldLabel = doc.label;
+			}
+			const label = row.label;
+			delete row.label;
+			row.label = oldLabel;
+			row.label[language] = label;
+		}
+		if (collectionName === 'permissions' && row.columns) {
+			let oldColumns = {};
+			if (_id) {
+				const doc = await getModel('permissions').findById(_id);
+				oldColumns = doc.columns;
+			}
+			row.columns.forEach((rowColumn, index) => {
+				const label = rowColumn.label;
+				const key = rowColumn.key;
+				const oldRowColumn = _.find(oldColumns, { key }) || {};
+				row.columns[index].label = {
+					...oldRowColumn.label,
+					[language]: label
+				};
+			});
+		}
+		if (collectionName === 'permissions' && row.fields) {
+			let oldFields = {};
+			if (_id) {
+				const doc = await getModel('permissions').findById(_id);
+				oldFields = doc.fields;
+			}
+			row.fields.forEach((rowField, index) => {
+				const label = rowField.label;
+				const key = rowField.key;
+				const oldRowField = _.find(oldFields, { key }) || {};
+				row.fields[index].label = {
+					...oldRowField.label,
+					[language]: label
+				};
+			});
+		}
 		if (_id) {
 			await getModel(collectionName).updateOne({ _id }, { ...row });
 		} else {

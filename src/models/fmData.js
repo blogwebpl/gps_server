@@ -8,8 +8,8 @@ const fmDataSchema = new mongoose.Schema({
 	st: { type: Date, default: null },
 	gps: {
 		pos: {
-			type: [ Number ],
-			default: [ 0, 0 ],
+			type: [Number],
+			default: [0, 0],
 			index: '2dsphere'
 		},
 		alt: {
@@ -33,7 +33,7 @@ const fmDataSchema = new mongoose.Schema({
 			max: 2500
 		}
 	},
-	io: [ [ Number ] ]
+	io: [[Number]]
 }, { collection: 'fmData' });
 
 fmDataSchema.index({ imei: 1, time: 1 }, { unique: true });

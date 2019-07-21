@@ -20,7 +20,7 @@ export default (user, collectionName) => {
 			return [];
 		}
 	};
-	const getUserColumns = () => (user.settings && user.settings[ collectionName ] && user.settings[ collectionName ].columns);
+	const getUserColumns = () => (user.settings && user.settings[collectionName] && user.settings[collectionName].columns);
 	const compareColumns = (columns1, columns2) => {
 		try {
 			const length1 = Object.keys(columns1).length;
@@ -34,7 +34,7 @@ export default (user, collectionName) => {
 		let result = true;
 
 		columns1.forEach((k, index) => {
-			const key = columns1[ index ].key;
+			const key = columns1[index].key;
 			const i = _.findIndex(columns2, { key });
 			if (i === -1) {
 				/* ignore coverage */
@@ -52,5 +52,12 @@ export default (user, collectionName) => {
 	if (compareColumns(roleColumns, userColumns) === false) {
 		return roleColumns;
 	}
+	// return userColumns with label and type
+	userColumns.forEach((userColumn, index) => {
+		const key = userColumn.key;
+		const i = _.findIndex(roleColumns, { key });
+		userColumns[index].label = roleColumns[i].label;
+		userColumns[index].type = roleColumns[i].type;
+	});
 	return userColumns;
 };

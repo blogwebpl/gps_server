@@ -50,6 +50,7 @@
     "idempotent-babel-polyfill": "^7.4.4",
     "mocha": "^6.1.4",
     "mongodb": "^3.2.7",
+    "morgan": "^1.9.1",
     "nodemon": "^1.19.1",
     "rimraf": "^2.6.3",
     "supertest": "^4.0.2"

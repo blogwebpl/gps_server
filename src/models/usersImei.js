@@ -11,7 +11,7 @@ const usersImeiSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Imei'
 	},
-	label: {
+	name: {
 		type: String,
 		require: true
 	},
