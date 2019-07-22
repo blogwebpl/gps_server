@@ -53,7 +53,11 @@ const listOfCollections = ['users', 'roles', 'imeis', 'menus', 'menuItems', 'per
 listOfCollections.forEach((collection) => {
 	app.use(`/api/${collection}`, collections(collection));
 });
-
+app.get('*', (req, res) => {
+	res.sendFile(
+		path.join(__dirname, '..', '..', 'client', 'build', 'index.html')
+	);
+});
 /* ignore coverage */
 if (env !== 'test') {
 	server.listen(port, '0.0.0.0', () => {
