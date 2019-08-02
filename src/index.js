@@ -22,6 +22,7 @@ import menu from './routes/menu';
 import path from 'path';
 import row from './routes/row';
 import schedules from './functions/scheduler';
+import updatePosition from './functions/updatePosition';
 import vehiclesList from './routes/vehiclesList';
 
 // import morgan from 'morgan';
@@ -64,10 +65,11 @@ if (env !== 'test') {
 	server.listen(port, '0.0.0.0', () => {
 		console.log(`Server [${env}] listening on port ${port}`);
 		const fmServer = new FmServer({
-			fmPort: 5002,
+			fmPort: 5005,
 			Imei,
 			FmData,
-			FmLast
+			FmLast,
+			updatePosition
 		});
 		fmServer.start();
 	});
