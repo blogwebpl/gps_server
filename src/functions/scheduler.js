@@ -18,7 +18,7 @@ Scheduler.prototype.add = function() {
 			schedule.scheduleJob(scheduleName, time, (fireDate) => {
 				switch (job) {
 					case 'console_log_test':
-						console.log(`console_log_test ${new Date()}`);
+						// console.log(`console_log_test ${new Date()}`);
 						break;
 					default:
 				}

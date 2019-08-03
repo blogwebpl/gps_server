@@ -1,3 +1,5 @@
+import clients from './clients';
+
 export default ({
 	imei,
 	time,
@@ -5,5 +7,14 @@ export default ({
 	gps,
 	st
 }) => {
-	console.log(imei);
+	clients.emit({
+		type: 'point',
+		data: {
+			imei,
+			time,
+			io,
+			gps,
+			st
+		}
+	});
 };

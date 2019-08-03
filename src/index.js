@@ -7,6 +7,7 @@ import FmServer from 'fm';
 import Imei from './models/imei';
 import bodyParser from 'body-parser';
 import bodyParserError from 'bodyparser-json-error';
+import clients from './functions/clients';
 import collections from './routes/collections';
 import collectionsList from './routes/collectionsList';
 import columns from './routes/columns';
@@ -22,6 +23,8 @@ import menu from './routes/menu';
 import path from 'path';
 import row from './routes/row';
 import schedules from './functions/scheduler';
+import socketIO from 'socket.io';
+import socketioJwt from 'socketio-jwt';
 import updatePosition from './functions/updatePosition';
 import vehiclesList from './routes/vehiclesList';
 
@@ -60,6 +63,32 @@ app.get('*', (req, res) => {
 		path.join(__dirname, '..', '..', 'client', 'build', 'index.html')
 	);
 });
+
+const io = socketIO(server, { serveClient: false });
+
+io.use(socketioJwt.authorize({
+	secret: config[env].JWT_SECRET,
+	handshake: true
+}));
+
+io.on('connection', (socket) => {
+	// console.log('on connection');
+	clients.add(socket);
+	socket.on('disconnect', () => {
+		clients.remove(socket);
+	});
+});
+
+server.on('error', (err) => {
+	switch (err.code) {
+		case 'EADDRINUSE':
+			console.log('Addres in use.');
+			process.exit();
+			return;
+		default: console.log('Unknown error.');
+	}
+});
+
 /* ignore coverage */
 if (env !== 'test') {
 	server.listen(port, '0.0.0.0', () => {
@@ -72,6 +101,7 @@ if (env !== 'test') {
 			updatePosition
 		});
 		fmServer.start();
+		schedules.add();
 	});
 }
 export default app;
