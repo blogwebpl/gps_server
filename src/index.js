@@ -54,7 +54,7 @@ app.use('/api/row', row);
 app.use('/api/menu', menu);
 app.use('/api/collectionsList', collectionsList);
 app.use('/api/vehiclesList', vehiclesList);
-const listOfCollections = ['users', 'roles', 'imeis', 'menus', 'menuItems', 'permissions', 'usersImeis'];
+const listOfCollections = ['users', 'roles', 'imeis', 'menus', 'menuItems', 'permissions', 'usersImeis', 'schedules'];
 listOfCollections.forEach((collection) => {
 	app.use(`/api/${collection}`, collections(collection));
 });

@@ -5,6 +5,7 @@ import Menu from '../models/menu';
 import MenuItem from '../models/menuItem';
 import Permission from '../models/permission';
 import Role from '../models/role';
+import Schedule from '../models/schedule';
 import User from '../models/user';
 import UsersImei from '../models/usersImei';
 /**
@@ -29,6 +30,9 @@ export default (collectionName) => {
 		case 'roles':
 			/* ignore coverage */
 			return Role;
+		case 'schedules':
+			/* ignore coverage */
+			return Schedule;
 		case 'users':
 			return User;
 		case 'usersImeis':
