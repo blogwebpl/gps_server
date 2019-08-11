@@ -13,13 +13,19 @@ export default async(permission, collectionName) => {
 		if (d.length === 3) {
 			const collectionName = d[0];
 			const key = d[1];
-			const field = d[2];
+			const fields = d[2];
 			if (collectionName) {
-				const data = await getModel(collectionName).find(/* TODO: filter data with user filter if avaiable */).select(field).lean();
-				const dta = data.map((d) => ({
-					value: d._id,
-					label: d[field]
-				}));
+				const data = await getModel(collectionName).find(/* TODO: filter data with user filter if avaiable */).select(fields).lean();
+				const f = fields.split(' ');
+				const dta = data.map((d) => {
+					const l = f.map((field) => {
+						return d[field];
+					});
+					return ({
+						value: d._id,
+						label: l.join(' ')
+					});
+				});
 				dictionaries[key] = dta;
 			}
 		}
