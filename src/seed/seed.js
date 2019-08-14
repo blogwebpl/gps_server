@@ -115,18 +115,27 @@ export const permissions = [
 				key: 'name',
 				label: 'Name',
 				sortOrder: 2,
-				sort: 'asc'
+				sort: 'asc',
+				type: 'text'
 			},
 			{
 				key: 'email',
 				label: 'E-mail',
 				sortOrder: 1,
-				sort: 'asc'
+				sort: 'asc',
+				type: 'text'
 			},
 			{
 				key: 'selectedRole',
 				label: 'Selected role',
-				sortOrder: 3
+				sortOrder: 4,
+				type: 'text'
+			},
+			{
+				key: 'dateFrom',
+				label: 'Date',
+				sortOrder: 3,
+				type: 'date'
 			}
 		],
 		fields: [

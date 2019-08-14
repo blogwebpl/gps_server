@@ -10,12 +10,12 @@ describe('routes/columns.js', () => {
 		before(async() => {
 			await initDb();
 		});
-		// TODO: test response body
-		it('should return columns to user with 2 collumns in settings', (done) => {
+		it.only('should return columns to user with 2 collumns in settings', (done) => {
 			supertest(app)
 				.get('/api/columns/users')
 				.set('x-auth', users[0].token)
 				.expect(200)
+				.expect('{"columns":[{"key":"name","label":"Name","sortOrder":1,"sort":"asc","type":"text"},{"key":"email","label":"E-mail","sortOrder":2,"sort":"asc","type":"text"},{"key":"selectedRole","label":"Selected role","sortOrder":4,"type":"text"},{"key":"dateFrom","label":"Date","sortOrder":3,"type":"date"}]}')
 				.end((err) => {
 					if (err) {
 						done(new Error(err.message));
@@ -29,19 +29,7 @@ describe('routes/columns.js', () => {
 				.get('/api/columns/users')
 				.set('x-auth', users[3].token)
 				.expect(200)
-				.end((err) => {
-					if (err) {
-						done(new Error(err.message));
-						return;
-					}
-					done();
-				});
-		});
-		it('should return columns (from role) for user with 3 columns in settings but not like in role', (done) => {
-			supertest(app)
-				.get('/api/columns/users')
-				.set('x-auth', users[0].token)
-				.expect(200)
+				.expect('{"columns":[{"key":"name","label":"Name","sortOrder":2,"sort":"asc","type":"text"},{"key":"email","label":"E-mail","sortOrder":1,"sort":"asc","type":"text"},{"key":"selectedRole","label":"Selected role","sortOrder":4,"type":"text"},{"key":"dateFrom","label":"Date","sortOrder":3,"type":"date"}]}')
 				.end((err) => {
 					if (err) {
 						done(new Error(err.message));
