@@ -6,6 +6,7 @@
   "scripts": {
     "build": "rimraf dist/ && babel ./src/ --source-maps --out-dir dist/ --ignore ./src/*.test.js,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "yarn build && cross-env NODE_ENV=production node dist/index.js",
+    "startb": "cd ../client && yarn build && cd ../server && yarn build && cross-env NODE_ENV=production node dist/index.js",
     "dev": "cross-env NODE_ENV=development nodemon --exec babel-node src/index.js",
     "test": "cross-env NODE_ENV=test mocha --exit --timeout 15000 --require @babel/register src/**/*.test.js",
     "lint": "eslint src/**/*.js"
