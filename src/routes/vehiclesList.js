@@ -10,8 +10,8 @@ const getVehicles = asyncMiddleware(async(req, res) => {
 		const usersImeis = await UsersImei.find({ user: req.user._id }).populate({ path: 'imei', select: 'imei -_id' });
 		const vehicles = [];
 		await asyncForEach(usersImeis, async(usersVehicle) => {
-			if (usersVehicle.live) {
-				const liveData = await FmLast.findOne({ imei: usersVehicle.imei.imei });
+			const liveData = await FmLast.findOne({ imei: usersVehicle.imei.imei });
+			if (usersVehicle.live && liveData) {
 				vehicles.push({
 					name: usersVehicle.name,
 					imei: liveData.imei,
@@ -22,17 +22,18 @@ const getVehicles = asyncMiddleware(async(req, res) => {
 					show: true
 				});
 			} else {
-				vehicles.push({
-					name: usersVehicle.name,
-					imei: usersVehicle.imei.imei,
-					show: false
-				});
+					vehicles.push({
+						name: usersVehicle.name,
+						imei: usersVehicle.imei.imei,
+						show: false
+					});
 			}
 		});
 		res.send(vehicles);
 		return;
 	} catch (err) {
 		/* ignore coverage */
+		console.log(err);
 		res.sendStatus(500);
 	}
 });
