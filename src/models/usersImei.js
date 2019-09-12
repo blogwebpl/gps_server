@@ -18,6 +18,10 @@ const usersImeiSchema = new mongoose.Schema({
 	live: {
 		type: Boolean,
 		default: false
+	},
+	show: {
+		type: Boolean,
+		default: true
 	}
 });
 
