@@ -74,9 +74,25 @@ export default (collectionName) => {
 		}
 	});
 
+	const getFilters = asyncMiddleware(async(req, res) => {
+		try {
+			const filters = [
+				{
+					field: 'label',
+					comparator: 'not starts with',
+					value: 'U'
+				}
+			];
+			res.send({ filters });
+		} catch (err) {
+			res.send(500);
+		}
+	});
+
 	const router = new express.Router();
 	router.get('/', authenticate, getDocuments);
 	router.get('/fieldsList', authenticate, getFieldsList);
+	router.get('/filters', authenticate, getFilters);
 	router.delete('/', authenticate, deleteDocuments);
 	return router;
 };
