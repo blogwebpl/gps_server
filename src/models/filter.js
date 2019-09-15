@@ -9,7 +9,12 @@ const filterSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true
-	}
+	},
+	collectionName: {
+		type: String,
+		required: true
+	},
+	filters: []
 });
 
 const Filter = mongoose.models.Filter || mongoose.model('Filter', filterSchema);
