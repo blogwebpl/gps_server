@@ -12,7 +12,7 @@ export default (collectionName) => {
 	const getDocuments = asyncMiddleware(async(req, res) => {
 		if (!collectionName) {
 			/* ignore coverage */
-			res.send(500);
+			res.sendStatus(500);
 			/* ignore coverage */
 			return;
 		}
@@ -76,16 +76,23 @@ export default (collectionName) => {
 
 	const getFilters = asyncMiddleware(async(req, res) => {
 		try {
-			const filters = [
-				{
-					field: 'label',
-					comparator: 'not starts with',
-					value: 'U'
-				}
-			];
+			const user = req.user;
+			const filters = (user.settings && user.settings[collectionName] && user.settings[collectionName].filters) || [];
 			res.send({ filters });
 		} catch (err) {
-			res.send(500);
+			res.sendStatus(500);
+		}
+	});
+
+	const postAddFilter = asyncMiddleware(async(req, res) => {
+		try {
+			const user = req.user._id;
+			const name = req.body.name;
+			const filters = req.body.filters;
+			console.log(user, name, collectionName, filters);
+			res.sendStatus(200);
+		} catch (err) {
+			res.sendStatus(500);
 		}
 	});
 
@@ -93,6 +100,7 @@ export default (collectionName) => {
 	router.get('/', authenticate, getDocuments);
 	router.get('/fieldsList', authenticate, getFieldsList);
 	router.get('/filters', authenticate, getFilters);
+	router.post('/addFilters', authenticate, postAddFilter);
 	router.delete('/', authenticate, deleteDocuments);
 	return router;
 };
